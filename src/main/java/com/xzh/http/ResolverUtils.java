@@ -2,7 +2,10 @@ package com.xzh.http;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,5 +34,16 @@ public class ResolverUtils {
             map.put(kv[0], kv[1]);
         }
         return map;
+    }
+
+    public String getRequestJson(HttpServletRequest request) throws IOException {
+        InputStream is = request.getInputStream ();
+        StringBuilder sb = new StringBuilder ();
+        BufferedReader streamReader = new BufferedReader (new InputStreamReader(is, StandardCharsets.UTF_8));
+        String inputStr;
+        while ((inputStr = streamReader.readLine ()) != null){
+            sb.append (inputStr);
+        }
+        return sb.toString();
     }
 }
