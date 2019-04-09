@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class ResolverUtils {
 
-    public String getRequestJson(HttpServletRequest request) throws IOException {
+    public static String getRequestJson(HttpServletRequest request) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
         StringBuffer sb = new StringBuffer();
         String temp;
