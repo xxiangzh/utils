@@ -1,9 +1,10 @@
 package com.xzh.http;
 
+import com.alibaba.fastjson.JSON;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -15,16 +16,28 @@ import java.util.Map;
  */
 public class ResolverUtils {
 
-    public static Map<String, String> getRequestMap(HttpServletRequest request) throws Exception{
-        Map<String, String> map = new HashMap<>();
-        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), "utf-8"));
+    public String getRequestJson(HttpServletRequest request) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
         StringBuffer sb = new StringBuffer();
         String temp;
         while ((temp = br.readLine()) != null) {
             sb.append(temp);
         }
+        String json = sb.toString();
+        return json;
+    }
+
+    public static Map<String, String> getRequestMap(HttpServletRequest request) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
+        StringBuffer sb = new StringBuffer();
+        String temp;
+        while ((temp = br.readLine()) != null) {
+            sb.append(temp);
+        }
+        String json = sb.toString();
         br.close();
-        String data = java.net.URLDecoder.decode(sb.toString(), "utf-8");
+        String data = java.net.URLDecoder.decode(json, "utf-8");
+        Map<String, String> map = new HashMap<>();
         if (data.isEmpty()) {
             return map;
         }
@@ -36,14 +49,14 @@ public class ResolverUtils {
         return map;
     }
 
-    public String getRequestJson(HttpServletRequest request) throws IOException {
-        InputStream is = request.getInputStream ();
-        StringBuilder sb = new StringBuilder ();
-        BufferedReader streamReader = new BufferedReader (new InputStreamReader(is, StandardCharsets.UTF_8));
-        String inputStr;
-        while ((inputStr = streamReader.readLine ()) != null){
-            sb.append (inputStr);
+    public static <T> T getRequestModel(HttpServletRequest request, Class<T> clazz) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
+        StringBuffer sb = new StringBuffer();
+        String temp;
+        while ((temp = br.readLine()) != null) {
+            sb.append(temp);
         }
-        return sb.toString();
+        String json = sb.toString();
+        return JSON.parseObject(json, clazz);
     }
 }

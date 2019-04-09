@@ -20,7 +20,6 @@ import java.io.IOException;
  * @date 2018/11/17 13:16
  */
 public class HttpUitls {
-//    private static final Logger LOG = LoggerFactory.getLogger(HttpUitls.class);
 
     /**
      * NameValuePair格式
@@ -35,7 +34,8 @@ public class HttpUitls {
         postMethod.setRequestBody(data);
         try {
             int statusCode = httpClient.executeMethod(postMethod);
-//            LOG.info("statusCode: " + statusCode + ", body: " + postMethod.getResponseBodyAsString());
+
+//            log.info("statusCode: " + statusCode + ", body: " + postMethod.getResponseBodyAsString());
         } catch (IOException ignored) {
         }
     }
@@ -54,7 +54,7 @@ public class HttpUitls {
         try {
             HttpResponse response = httpClient.execute(httpPost);
             String result = EntityUtils.toString(response.getEntity(), "UTF-8");
-//            LOG.info("response: "+result);
+//            log.info("response: "+result);
         } catch (IOException ignored) {
         }
     }
