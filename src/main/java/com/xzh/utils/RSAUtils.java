@@ -3,7 +3,7 @@ package com.xzh.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.mmtvip.gatewayservice.config.KeyConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 import sun.misc.BASE64Decoder;
