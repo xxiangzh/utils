@@ -1,5 +1,6 @@
 package com.xzh.utils;
 
+import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -34,36 +35,68 @@ public class ClassUtils {
 
     /**
      * 将实体转Map
-     * @param obj
+     * @param object
      * @param <T>
      * @return
      */
-    public <T> Map toMap(T obj) {
+    public <T> Map toMap(T object) {
         Map map = new HashMap();
-        Field[] fields = obj.getClass().getDeclaredFields();
+        Field[] fields = object.getClass().getDeclaredFields();
         for (Field field : fields) {
             String name = field.getName();
-            String value = getValueByName(name, obj);
+            Object value = getValue(object, name);
             map.put(name, value);
         }
         return map;
     }
 
     /**
-     * 根据字段名获取属性
+     * 根据字段名设置属性
+     * @param object
      * @param name
-     * @param obj
+     * @param value
+     */
+    public void setValue(Object object, String name, Object value){
+        try {
+            PropertyDescriptor pd = new PropertyDescriptor(name, object.getClass());
+            Method method = pd.getWriteMethod();
+            method.invoke(object, value);
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * 根据字段名获取属性
+     * @param object
+     * @param name
      * @return
      */
-    public String getValueByName(String name, Object obj){
+    public Object getValue(Object object, String name){
+        try {
+            PropertyDescriptor pd = new PropertyDescriptor(name, object.getClass());
+            Method method = pd.getReadMethod();
+            Object value = method.invoke(object);
+            return value;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * 根据字段名获取属性
+     * @param object
+     * @param name
+     * @return
+     */
+    public Object getValueByName(Object object, String name){
         String firstLetter = name.substring(0,1).toUpperCase();
         String getter = "get"+firstLetter+name.substring(1);
         try {
-            Method method = obj.getClass().getMethod(getter);
-            Object value = method.invoke(obj);
-            return String.valueOf(value).trim();
+            Method method = object.getClass().getMethod(getter);
+            Object value = method.invoke(object);
+            return value;
         } catch (Exception e) {
-            return "";
+            return null;
         }
     }
 }
