@@ -22,7 +22,8 @@
 //import java.util.List;
 //
 ///**
-// *  RSA
+// * RSA
+// *
 // * @author 向振华
 // * @date 2019/01/08 13:35
 // */
@@ -36,7 +37,8 @@
 //    private String privateKey;
 //
 //    /**
-//     *  验签
+//     * 验签
+//     *
 //     * @param json
 //     * @return
 //     */
@@ -50,6 +52,7 @@
 //
 //    /**
 //     * 加签
+//     *
 //     * @param json
 //     * @return
 //     */
@@ -59,6 +62,7 @@
 //
 //    /**
 //     * 加密
+//     *
 //     * @param json
 //     * @return
 //     */
@@ -68,6 +72,7 @@
 //
 //    /**
 //     * 解密
+//     *
 //     * @param json
 //     * @return
 //     */
@@ -77,6 +82,7 @@
 //
 //    /**
 //     * 验签
+//     *
 //     * @param data
 //     * @param sign
 //     * @return
@@ -97,6 +103,7 @@
 //
 //    /**
 //     * 加签
+//     *
 //     * @param data
 //     * @return
 //     */
@@ -116,6 +123,7 @@
 //
 //    /**
 //     * 加密数据
+//     *
 //     * @param originData
 //     * @return
 //     */
@@ -134,6 +142,7 @@
 //
 //    /**
 //     * 解密数据
+//     *
 //     * @param encodeData
 //     * @return
 //     */
@@ -152,6 +161,7 @@
 //
 //    /**
 //     * 获取公钥
+//     *
 //     * @return
 //     */
 //    private PublicKey getPublicKey(){
@@ -168,6 +178,7 @@
 //
 //    /**
 //     * 获取私钥
+//     *
 //     * @return
 //     */
 //    private PrivateKey getPrivateKey(){
@@ -184,6 +195,7 @@
 //
 //    /**
 //     * BASE64 编码的字符串 str 进行解码
+//     *
 //     * @param str
 //     * @return
 //     */
@@ -201,6 +213,7 @@
 //
 //    /**
 //     * 生成待签名串
+//     *
 //     * @param jsonObject
 //     * @return
 //     */

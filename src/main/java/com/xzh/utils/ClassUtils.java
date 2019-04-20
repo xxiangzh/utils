@@ -1,12 +1,18 @@
 package com.xzh.utils;
 
+import com.alibaba.fastjson.JSONArray;
+import com.xzh.vo.Sign;
+
 import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +23,7 @@ public class ClassUtils {
 
     /**
      * 获取指定包下面所有的class文件
+     *
      * @param packagePath 包路径
      * @return
      */
@@ -35,11 +42,12 @@ public class ClassUtils {
 
     /**
      * 将实体转Map
+     *
      * @param object
      * @param <T>
      * @return
      */
-    public <T> Map toMap(T object) {
+    public static  <T> Map toMap(T object) {
         Map map = new HashMap();
         Field[] fields = object.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -52,11 +60,12 @@ public class ClassUtils {
 
     /**
      * 根据字段名设置属性
+     *
      * @param object
      * @param name
      * @param value
      */
-    public void setValue(Object object, String name, Object value){
+    public static void setValue(Object object, String name, Object value){
         try {
             PropertyDescriptor pd = new PropertyDescriptor(name, object.getClass());
             Method method = pd.getWriteMethod();
@@ -67,11 +76,12 @@ public class ClassUtils {
 
     /**
      * 根据字段名获取属性
+     *
      * @param object
      * @param name
      * @return
      */
-    public Object getValue(Object object, String name){
+    public static Object getValue(Object object, String name){
         try {
             PropertyDescriptor pd = new PropertyDescriptor(name, object.getClass());
             Method method = pd.getReadMethod();
@@ -84,11 +94,12 @@ public class ClassUtils {
 
     /**
      * 根据字段名获取属性
+     *
      * @param object
      * @param name
      * @return
      */
-    public Object getValueByName(Object object, String name){
+    public static Object getValueByName(Object object, String name){
         String firstLetter = name.substring(0,1).toUpperCase();
         String getter = "get"+firstLetter+name.substring(1);
         try {
@@ -98,5 +109,43 @@ public class ClassUtils {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * 加密/解密
+     *
+     * @param object
+     * @param <T>
+     * @return
+     */
+    public static <T> T decode(T object) {
+        try {
+            Field[] fields = object.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                Sign annotation = field.getAnnotation(Sign.class);
+                Class fieldClass = field.getType();
+                String name = field.getName();
+                PropertyDescriptor pd = new PropertyDescriptor(name, object.getClass());
+                Object value = pd.getReadMethod().invoke(object);
+                if (value == null){
+                    continue;
+                }
+                if (annotation != null){
+                    pd.getWriteMethod().invoke(object, "【"+value + "】");
+                }else if (fieldClass == List.class){
+                    Type listType = field.getGenericType();
+                    ParameterizedType pt = (ParameterizedType) listType;
+                    Class<?> listClass = (Class<?>) pt.getActualTypeArguments()[0];
+                    List list = JSONArray.parseArray(JSONArray.toJSONString(value), listClass);
+                    for (Object o : list) {
+                        decode(o);
+                    }
+                    pd.getWriteMethod().invoke(object, list);
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return object;
     }
 }

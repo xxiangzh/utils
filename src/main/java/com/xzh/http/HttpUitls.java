@@ -16,6 +16,7 @@ import java.io.IOException;
 
 /**
  * http请求
+ *
  * @author 向振华
  * @date 2018/11/17 13:16
  */
@@ -23,6 +24,7 @@ public class HttpUitls {
 
     /**
      * NameValuePair格式
+     *
      * @param url 请求地址
      * @param data 数据
      */
@@ -42,6 +44,7 @@ public class HttpUitls {
 
     /**
      * json格式
+     *
      * @param url 请求地址
      * @param json 数据
      */
