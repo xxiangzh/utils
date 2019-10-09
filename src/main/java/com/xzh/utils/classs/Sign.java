@@ -1,4 +1,4 @@
-package com.xzh.annotation;
+package com.xzh.utils.classs;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

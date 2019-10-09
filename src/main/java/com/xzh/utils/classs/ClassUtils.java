@@ -1,7 +1,6 @@
 package com.xzh.utils.classs;
 
 import com.alibaba.fastjson.JSONArray;
-import com.xzh.annotation.Sign;
 
 import java.beans.PropertyDescriptor;
 import java.io.File;
