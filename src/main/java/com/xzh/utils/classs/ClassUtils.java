@@ -1,7 +1,7 @@
-package com.xzh.utils;
+package com.xzh.utils.classs;
 
 import com.alibaba.fastjson.JSONArray;
-import com.xzh.vo.Sign;
+import com.xzh.annotation.Sign;
 
 import java.beans.PropertyDescriptor;
 import java.io.File;
@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * class工具
+ *
  * @author 向振华
  * @date 2018/11/17 13:52
  */

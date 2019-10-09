@@ -1,4 +1,4 @@
-package com.rongyixin.sudaidai.bridge.utils;
+package com.xzh.utils.image;
 
 import org.apache.commons.lang3.StringUtils;
 import sun.misc.BASE64Decoder;
@@ -16,13 +16,18 @@ import java.net.URL;
  */
 public class ImageUtils {
 
+    /**
+     * 本地图片转BASE64编码
+     *
+     * @param imgFile
+     * @return
+     */
     public static String toBase64ByLocal(String imgFile) {
         InputStream in = null;
         byte[] data = null;
         // 读取图片字节数组
         try {
             in = new FileInputStream(imgFile);
-
             data = new byte[in.available()];
             in.read(data);
             in.close();
@@ -34,6 +39,13 @@ public class ImageUtils {
         // 返回Base64编码过的字节数组字符串
         return encoder.encode(data);
     }
+
+    /**
+     * 网络图片转BASE64编码
+     *
+     * @param imgUrl
+     * @return
+     */
     public static String toBase64ByOnline(String imgUrl) {
         ByteArrayOutputStream data = new ByteArrayOutputStream();
         try {
@@ -60,6 +72,13 @@ public class ImageUtils {
         return encoder.encode(data.toByteArray());
     }
 
+    /**
+     * BASE64编码转图片
+     *
+     * @param imgStr
+     * @param imgFilePath 图片地址
+     * @return
+     */
     public static boolean base64ToImage(String imgStr, String imgFilePath) {
         if (StringUtils.isBlank(imgStr)) {
             return false;
