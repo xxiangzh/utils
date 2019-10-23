@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public class ResolverUtils {
     public static String getRequestJson(HttpServletRequest request) {
         try {
             return getParameters(request);
-        } catch (IOException e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -40,14 +39,7 @@ public class ResolverUtils {
      */
     public static Map<String, String> getRequestMap(HttpServletRequest request) {
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder();
-            String temp;
-            while ((temp = br.readLine()) != null) {
-                sb.append(temp);
-            }
-            String json = sb.toString();
-            br.close();
+            String json = getParameters(request);
             String data = java.net.URLDecoder.decode(json, "utf-8");
             if (data.isEmpty()) {
                 return null;
@@ -58,7 +50,7 @@ public class ResolverUtils {
                 map.put(kv[0], kv[1]);
             }
             return map;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -80,13 +72,14 @@ public class ResolverUtils {
         }
     }
 
-    private static String getParameters(HttpServletRequest request) throws IOException {
+    private static String getParameters(HttpServletRequest request) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         String temp;
         while ((temp = br.readLine()) != null) {
             sb.append(temp);
         }
+        br.close();
         return sb.toString();
     }
 }
