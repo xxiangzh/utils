@@ -83,7 +83,37 @@ public class FileUtil {
         }
     }
 
+    /**
+     * 排除关键字复制
+     * @param sourceFolderDirectory 源文件夹目录
+     * @param targetFolderDirectory 目标文件夹目录
+     * @param keys 关键字数组
+     */
+    public static void copyWithoutKey(String sourceFolderDirectory, String targetFolderDirectory, String... keys){
+        if (keys == null){
+            return;
+        }
+        List<File> fileList = getFileList(sourceFolderDirectory, true);
+        if (fileList == null){
+            return;
+        }
+        boolean flag = true;
+        for (File file : fileList) {
+            for (String key : keys) {
+                if (file.getAbsolutePath().contains(key)){
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag){
+                copy(file.getAbsolutePath(),targetFolderDirectory);
+            }else {
+                flag = true;
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        copyByKey("D:\\develop\\apache-jmeter-5.1.1\\bin\\examples", "D:\\test", null);
+        copyWithoutKey("E:\\ADOCUMENT", "E:\\新建文件夹", new String[]{".png",".jpg"});
     }
 }
