@@ -47,13 +47,18 @@ public class FileUtil {
      * @param targetFolderDirectory 目标文件夹目录
      */
     public static void copy(String absolutePath, String targetFolderDirectory) {
+        File dir = new File(targetFolderDirectory);
+        if (!dir.isDirectory()) {
+            //如果目录不存在则创建
+            dir.mkdir();
+        }
         String newFileName = absolutePath.substring(absolutePath.lastIndexOf("\\")+1);
         targetFolderDirectory += File.separator + newFileName;
         try {
             FileInputStream fis = new FileInputStream(absolutePath);
             FileOutputStream fos = new FileOutputStream(targetFolderDirectory);
             byte[] datas = new byte[1024 * 8];
-            int len = 0;
+            int len;
             while((len = fis.read(datas))!=-1) {
                 fos.write(datas,0,len);
             }
