@@ -12,7 +12,10 @@ import java.util.Date;
  */
 public class DateUtils {
 
-    public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_SHORT_FORMAT = "yyyyMMddHHmmss";
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String TIME_FORMAT = "HH:mm:ss";
 
     /**
      * 日期转字符串
@@ -23,7 +26,7 @@ public class DateUtils {
         if (date == null) {
             return null;
         }
-        SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
+        SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT);
         return format.format(date);
     }
 
@@ -38,7 +41,7 @@ public class DateUtils {
             return null;
         }
         if (pattern == null || pattern.length() == 0){
-            pattern = DATETIME_FORMAT;
+            pattern = DATE_TIME_FORMAT;
         }
         try {
             return new SimpleDateFormat(pattern).format(date);
@@ -57,7 +60,7 @@ public class DateUtils {
             return null;
         }
         try {
-            return new SimpleDateFormat(DATETIME_FORMAT).parse(dateString);
+            return new SimpleDateFormat(DATE_TIME_FORMAT).parse(dateString);
         } catch (ParseException e) {
             return null;
         }
@@ -74,7 +77,7 @@ public class DateUtils {
             return null;
         }
         if (pattern == null || pattern.length() == 0){
-            pattern = DATETIME_FORMAT;
+            pattern = DATE_TIME_FORMAT;
         }
         try {
             return new SimpleDateFormat(pattern).parse(dateString);
