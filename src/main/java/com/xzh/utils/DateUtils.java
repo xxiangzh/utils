@@ -1,4 +1,4 @@
-package com.xzh.utils.string;
+package com.xzh.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

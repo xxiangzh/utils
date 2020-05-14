@@ -1,4 +1,4 @@
-package com.xzh.utils.image;
+package com.xzh.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import sun.misc.BASE64Decoder;

@@ -1,4 +1,4 @@
-package com.xzh.utils.regex;
+package com.xzh.utils;
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -77,32 +77,6 @@ public class RegexUtils {
     }
 
     /**
-     * 是否数字(小数||整数)
-     *
-     * @param number
-     * @return
-     */
-    public static boolean isNumber(String number) {
-        if (StringUtils.isBlank(number)) {
-            return false;
-        }
-        return number.matches("^[+-]?(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d)+)?$");
-    }
-
-    /**
-     * 是否整数
-     *
-     * @param number
-     * @return
-     */
-    public static boolean isInt(String number) {
-        if (StringUtils.isBlank(number)) {
-            return false;
-        }
-        return number.matches("^[+-]?(([1-9]{1}\\d*)|([0]{1}))$");
-    }
-
-    /**
      * 是否正整数
      *
      * @param number
@@ -112,6 +86,19 @@ public class RegexUtils {
         if (StringUtils.isBlank(number)) {
             return false;
         }
-        return number.matches("^[+-]?(([1-9]{1}\\d*)|([0]{1}))$");
+        return number.matches("^\\+?[1-9][0-9]*$");
+    }
+
+    /**
+     * 是否正浮点数
+     *
+     * @param number
+     * @return
+     */
+    public static boolean isPositivePoint(String number) {
+        if (StringUtils.isBlank(number)) {
+            return false;
+        }
+        return number.matches("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$");
     }
 }

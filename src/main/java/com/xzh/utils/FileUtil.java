@@ -1,4 +1,4 @@
-package com.xzh.utils.string;
+package com.xzh.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

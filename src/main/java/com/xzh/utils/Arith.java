@@ -1,4 +1,4 @@
-package com.xzh.utils.number;
+package com.xzh.utils;
 
 import java.math.BigDecimal;
 
