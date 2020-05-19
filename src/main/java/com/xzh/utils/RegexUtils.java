@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.regex.Matcher;
 
 import static java.util.regex.Pattern.compile;
-import static java.util.regex.Pattern.matches;
 
 /**
  * 校验类
@@ -60,7 +59,7 @@ public class RegexUtils {
         if (StringUtils.isBlank(mobile)){
             return false;
         }
-        return matches("[1][3456789]\\d{9}", mobile);
+        return mobile.matches("[1][3456789]\\d{9}");
     }
 
     /**
