@@ -12,9 +12,14 @@ import java.net.UnknownHostException;
  * 获取真实ip
  *
  * @author 向振华
- * @date 2019/12/16 15:15
+ * @since 2020-05-09
  */
-public class IPUtil {
+public class IpUtils {
+    
+    public static final String UNKNOWN= "unknown";
+    public static final String LOCALHOST= "127.0.0.1";
+    public static final String LOCAL= "0:0:0:0:0:0:0:1";
+    public static final String POINT = ",";
 
     public static String getIp() {
         // 获取request
@@ -24,20 +29,17 @@ public class IPUtil {
             return null;
         }
         HttpServletRequest request = servletRequestAttributes.getRequest();
-        if (request == null) {
-            return null;
-        }
         // 获取IP
         String ip = request.getHeader("x-forwarded-for");
-        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if(ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if(ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if(ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
-            if("127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip)){
+            if(LOCALHOST.equals(ip) || LOCAL.equals(ip)){
                 try {
                     //根据网卡取本机配置的IP
                     ip= InetAddress.getLocalHost().getHostAddress();
@@ -47,8 +49,8 @@ public class IPUtil {
             }
         }
         //多个代理的情况取第一个为真实IP
-        if (ip.contains(",")) {
-            ip = ip.split(",")[0];
+        if (ip.contains(POINT)) {
+            ip = ip.split(POINT)[0];
         }
         return ip;
     }
