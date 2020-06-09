@@ -24,6 +24,9 @@ public class SessionUtil {
     public static HttpSession session() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+        if (servletRequestAttributes == null){
+            return null;
+        }
         HttpServletRequest request = servletRequestAttributes.getRequest();
         return request.getSession();
     }
@@ -36,6 +39,9 @@ public class SessionUtil {
     public static HttpServletResponse response(){
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+        if (servletRequestAttributes == null){
+            return null;
+        }
         return servletRequestAttributes.getResponse();
     }
 
@@ -47,6 +53,9 @@ public class SessionUtil {
     public static HttpServletRequest request(){
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+        if (servletRequestAttributes == null){
+            return null;
+        }
         return servletRequestAttributes.getRequest();
     }
 }

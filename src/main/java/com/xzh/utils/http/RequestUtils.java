@@ -15,7 +15,7 @@ import java.util.Map;
  * @author 向振华
  * @date 2018/12/10 17:15
  */
-public class ResolverUtils {
+public class RequestUtils {
 
     /**
      * 获取Json格式请求参数
@@ -23,7 +23,7 @@ public class ResolverUtils {
      * @param request
      * @return
      */
-    public static String getRequestJson(HttpServletRequest request) {
+    public static String getJson(HttpServletRequest request) {
         try {
             return getParameters(request);
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class ResolverUtils {
      * @param request
      * @return
      */
-    public static Map<String, String> getRequestMap(HttpServletRequest request) {
+    public static Map<String, String> getMap(HttpServletRequest request) {
         try {
             String json = getParameters(request);
             String data = java.net.URLDecoder.decode(json, "utf-8");
@@ -63,7 +63,7 @@ public class ResolverUtils {
      * @param <T>
      * @return
      */
-    public static <T> T getRequestModel(HttpServletRequest request, Class<T> clazz) {
+    public static <T> T getModel(HttpServletRequest request, Class<T> clazz) {
         try {
             String json = getParameters(request);
             return JSON.parseObject(json, clazz);
