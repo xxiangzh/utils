@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * @date 2020/07/03 15:43
  */
 @Slf4j
-@Component
+//@Component
 public class RobotUtils {
 
     private static String active;
