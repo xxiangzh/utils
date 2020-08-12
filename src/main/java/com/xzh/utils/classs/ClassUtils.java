@@ -28,10 +28,10 @@ public class ClassUtils {
      * @param packagePath 包路径
      * @return
      */
-    public static File[] getResources(String packagePath){
+    public static File[] getResources(String packagePath) {
         try {
             URL resource = ClassUtils.class.getClassLoader().getResource(packagePath.replace(".", "/"));
-            if (resource == null){
+            if (resource == null) {
                 return null;
             }
             File file = new File(resource.toURI());
@@ -42,19 +42,26 @@ public class ClassUtils {
     }
 
     /**
-     * 将实体转Map
+     * 实体对象转成Map
      *
-     * @param object
-     * @param <T>
+     * @param objs 实体对象
      * @return
      */
-    public static  <T> Map toMap(T object) {
+    public static Map toMap(Object... objs) {
         Map map = new HashMap();
-        Field[] fields = object.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            String name = field.getName();
-            Object value = getValue(object, name);
-            map.put(name, value);
+        for (Object obj : objs) {
+            if (obj == null) {
+                continue;
+            }
+            Class clazz = obj.getClass();
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                try {
+                    map.put(field.getName(), field.get(obj));
+                } catch (Exception e) {
+                }
+            }
         }
         return map;
     }
@@ -66,7 +73,7 @@ public class ClassUtils {
      * @param name
      * @param value
      */
-    public static void setValue(Object object, String name, Object value){
+    public static void setValue(Object object, String name, Object value) {
         try {
             PropertyDescriptor pd = new PropertyDescriptor(name, object.getClass());
             Method method = pd.getWriteMethod();
@@ -82,7 +89,7 @@ public class ClassUtils {
      * @param name
      * @return
      */
-    public static Object getValue(Object object, String name){
+    public static Object getValue(Object object, String name) {
         try {
             PropertyDescriptor pd = new PropertyDescriptor(name, object.getClass());
             Method method = pd.getReadMethod();
@@ -100,9 +107,9 @@ public class ClassUtils {
      * @param name
      * @return
      */
-    public static Object getValueByName(Object object, String name){
-        String firstLetter = name.substring(0,1).toUpperCase();
-        String getter = "get"+firstLetter+name.substring(1);
+    public static Object getValueByName(Object object, String name) {
+        String firstLetter = name.substring(0, 1).toUpperCase();
+        String getter = "get" + firstLetter + name.substring(1);
         try {
             Method method = object.getClass().getMethod(getter);
             Object value = method.invoke(object);
@@ -128,12 +135,12 @@ public class ClassUtils {
                 String name = field.getName();
                 PropertyDescriptor pd = new PropertyDescriptor(name, object.getClass());
                 Object value = pd.getReadMethod().invoke(object);
-                if (value == null){
+                if (value == null) {
                     continue;
                 }
-                if (annotation != null){
-                    pd.getWriteMethod().invoke(object, "【"+value + "】");
-                }else if (fieldClass == List.class){
+                if (annotation != null) {
+                    pd.getWriteMethod().invoke(object, "【" + value + "】");
+                } else if (fieldClass == List.class) {
                     Type listType = field.getGenericType();
                     ParameterizedType pt = (ParameterizedType) listType;
                     Class<?> listClass = (Class<?>) pt.getActualTypeArguments()[0];
