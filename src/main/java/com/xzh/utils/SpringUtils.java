@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
  */
 @SuppressWarnings("unchecked")
 @Component
-public class ApplicationUtils implements ApplicationContextAware {
+public class SpringUtils implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ApplicationUtils.applicationContext = applicationContext;
+        SpringUtils.applicationContext = applicationContext;
     }
 
     public static <T> T getBean(Class<T> clazz) {
