@@ -3,7 +3,9 @@ package com.xzh.utils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * @author 向振华
@@ -17,13 +19,17 @@ public class ObjectUtils {
      * @param object
      * @return
      */
-    public static boolean isNull(Object object) {
+    public static boolean isEmpty(Object object) {
         if (object == null) {
             return true;
-        } else if (object instanceof String) {
-            return StringUtils.isBlank((String) object);
+        } else if (object instanceof CharSequence) {
+            return StringUtils.isBlank((CharSequence) object);
         } else if (object instanceof Collection) {
             return CollectionUtils.isEmpty((Collection) object);
+        } else if (object instanceof Map) {
+            return CollectionUtils.isEmpty((Map) object);
+        } else if (object.getClass().isArray()) {
+            return Array.getLength(object) == 0;
         } else {
             return false;
         }
