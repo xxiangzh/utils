@@ -1,6 +1,7 @@
 package com.xzh.utils;
 
-import java.text.ParseException;
+import lombok.extern.slf4j.Slf4j;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import java.util.Date;
  * @author: 向振华
  * @date: 2019/12/23 17:54
  */
+@Slf4j
 public class DateUtils {
 
     public static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
@@ -20,19 +22,17 @@ public class DateUtils {
 
     /**
      * 日期转字符串
+     *
      * @param date
      * @return
      */
     public static String dateToString(Date date) {
-        if (date == null) {
-            return null;
-        }
-        SimpleDateFormat format = new SimpleDateFormat(DATE_TIME);
-        return format.format(date);
+        return dateToString(date, null);
     }
 
     /**
      * 日期转字符串，根据pattern转换
+     *
      * @param date
      * @param pattern
      * @return
@@ -41,34 +41,30 @@ public class DateUtils {
         if (date == null) {
             return null;
         }
-        if (pattern == null || pattern.length() == 0){
+        if (pattern == null || pattern.length() == 0) {
             pattern = DATE_TIME;
         }
         try {
             return new SimpleDateFormat(pattern).format(date);
         } catch (Exception e) {
+            log.error("日期转换出错：" + e);
             return null;
         }
     }
 
     /**
      * 字符串转日期
+     *
      * @param dateString
      * @return
      */
     public static Date stringToDate(String dateString) {
-        if (dateString == null || dateString.length() == 0) {
-            return null;
-        }
-        try {
-            return new SimpleDateFormat(DATE_TIME).parse(dateString);
-        } catch (ParseException e) {
-            return null;
-        }
+        return stringToDate(dateString, null);
     }
 
     /**
      * 字符串转日期，根据pattern转换
+     *
      * @param dateString
      * @param pattern
      * @return
@@ -77,13 +73,27 @@ public class DateUtils {
         if (dateString == null || dateString.length() == 0) {
             return null;
         }
-        if (pattern == null || pattern.length() == 0){
+        if (pattern == null || pattern.length() == 0) {
             pattern = DATE_TIME;
         }
         try {
             return new SimpleDateFormat(pattern).parse(dateString);
-        } catch (ParseException e) {
+        } catch (Exception e) {
+            log.error("日期转换出错：" + e);
             return null;
         }
+    }
+
+    /**
+     * 字符串转字符串，根据pattern转换
+     *
+     * @param dateString
+     * @param oldPattern
+     * @param newPattern
+     * @return
+     */
+    public static String stringToString(String dateString, String oldPattern, String newPattern) {
+        Date date = stringToDate(dateString, oldPattern);
+        return dateToString(date, newPattern);
     }
 }
