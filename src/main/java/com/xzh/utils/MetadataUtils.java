@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 图片工具
+ * 文件工具
  *
  * @author 向振华
  * @date 2020/08/19 14:08
