@@ -38,7 +38,6 @@ public class MetadataUtils {
      * @param dateTime
      */
     public static void rename(File file, String dateTime) {
-        dateTime = dateTime + "_";
         String filePath = file.getPath();
         String fileName = file.getName();
         String fileType = fileName.substring(fileName.lastIndexOf("."));
@@ -60,6 +59,7 @@ public class MetadataUtils {
      * @return
      */
     public static String getDateTime(File file) {
+        String newPattern = "yyyy_MM_dd_HH_mm_";
         List<Tag> tagList = getTagList(file);
         if (CollectionUtils.isEmpty(tagList)) {
             return null;
@@ -70,19 +70,15 @@ public class MetadataUtils {
             String description = tag.getDescription();
             // jpeg
             if ("Exif IFD0".equals(directoryName) && "Date/Time".equals(tagName)) {
-                return DateUtils.stringToString(description, "yyyy:MM:dd HH:mm:ss", "yyyy_MM_dd_HH_mm_ss");
-            }
-            // png
-            if ("File".equals(directoryName) && "File Modified Date".equals(tagName)) {
-                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", "yyyy_MM_dd_HH_mm_ss");
+                return DateUtils.stringToString(description, "yyyy:MM:dd HH:mm:ss", newPattern);
             }
             // mp4
             else if ("MP4 Video".equals(directoryName) && "Creation Time".equals(tagName)) {
-                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", "yyyy_MM_dd_HH_mm_ss");
+                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", newPattern);
             }
             // mov
             else if ("QuickTime Video".equals(directoryName) && "Creation Time".equals(tagName)) {
-                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", "yyyy_MM_dd_HH_mm_ss");
+                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", newPattern);
             }
         }
         return null;
