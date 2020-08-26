@@ -47,7 +47,7 @@ public class DateUtils {
         try {
             return new SimpleDateFormat(pattern).format(date);
         } catch (Exception e) {
-            log.error("日期转换出错：" + e);
+            log.error("日期转换出错：", e);
             return null;
         }
     }
@@ -79,7 +79,7 @@ public class DateUtils {
         try {
             return new SimpleDateFormat(pattern).parse(dateString);
         } catch (Exception e) {
-            log.error("日期转换出错：" + e);
+            log.error("日期转换出错：", e);
             return null;
         }
     }

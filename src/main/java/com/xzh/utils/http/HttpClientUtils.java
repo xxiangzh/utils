@@ -42,8 +42,8 @@ public class HttpClientUtils {
     /**
      * get请求
      *
-     * @param url 请求路径
-     * @param map 请求参数
+     * @param url     请求路径
+     * @param map     请求参数
      * @param headers 请求头
      * @return
      */
@@ -56,7 +56,7 @@ public class HttpClientUtils {
     /**
      * post请求
      *
-     * @param url 请求路径
+     * @param url  请求路径
      * @param json 请求参数json格式
      * @return
      */
@@ -70,8 +70,8 @@ public class HttpClientUtils {
     /**
      * post请求
      *
-     * @param url 请求路径
-     * @param json 请求参数json格式
+     * @param url     请求路径
+     * @param json    请求参数json格式
      * @param headers 请求头
      * @return
      */
@@ -93,7 +93,7 @@ public class HttpClientUtils {
         try {
             return doExecute(httpUriRequest);
         } catch (Exception e) {
-            log.error("HttpClientUtils-Exception: " + e);
+            log.error("HttpClientUtils-Exception: ", e);
             throw new RuntimeException("http请求异常！");
         }
     }
@@ -118,23 +118,24 @@ public class HttpClientUtils {
 
     /**
      * 创建URI
+     *
      * @param url
      * @param map
      * @return
      */
     private static URI buildUri(String url, Map<String, String> map) {
         try {
-            if (map != null && map.size() > 0){
+            if (map != null && map.size() > 0) {
                 List<NameValuePair> nameValuePairs = new ArrayList<>();
                 for (String key : map.keySet()) {
                     nameValuePairs.add(new BasicNameValuePair(key, map.get(key)));
                 }
                 return new URIBuilder(url).addParameters(nameValuePairs).build();
-            }else {
+            } else {
                 return new URIBuilder(url).build();
             }
         } catch (Exception e) {
-            log.error("HttpClientUtils-Exception: " + e);
+            log.error("HttpClientUtils-Exception: ", e);
             throw new RuntimeException("URI创建异常！");
         }
     }
