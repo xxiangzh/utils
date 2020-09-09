@@ -1,5 +1,7 @@
 package com.xzh.utils.secret;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -7,9 +9,10 @@ import javax.crypto.spec.SecretKeySpec;
  * AES加密工具
  *
  * @author: 向振华
- * @date: 2019/08/20 11:40
+ * @date: 2020/09/08 09:31
  */
-public class AES {
+@Slf4j
+public class AESUtils {
 
     private static final String AES = "AES";
     private static final String KEY = "3635192653589793";
@@ -45,6 +48,7 @@ public class AES {
         try {
             return byte2hex(encrypt(src.getBytes(), key));
         } catch (Exception e) {
+            log.error("加密异常：", e);
         }
         return null;
     }
@@ -60,6 +64,7 @@ public class AES {
         try {
             return new String(decrypt(hex2byte(src.getBytes()), key));
         } catch (Exception e) {
+            log.error("解密异常：", e);
         }
         return null;
     }
@@ -71,13 +76,13 @@ public class AES {
      * @return
      */
     private static String byte2hex(byte[] b) {
-        String stmp = "";
+        String stmp;
         if (null == b) {
             return "";
         }
-        StringBuffer buffer = new StringBuffer("");
-        for (int n = 0; n < b.length; n++) {
-            stmp = (Integer.toHexString(b[n] & 0XFF));
+        StringBuilder buffer = new StringBuilder();
+        for (byte value : b) {
+            stmp = (Integer.toHexString(value & 0XFF));
             if (stmp.length() == 1) {
                 buffer.append("0").append(stmp);
             } else {
@@ -115,9 +120,9 @@ public class AES {
      */
     public static byte[] encrypt(byte[] src, String key) throws Exception {
         Cipher cipher = Cipher.getInstance(AES);
-        SecretKeySpec securekey = new SecretKeySpec(key.getBytes(), AES);
+        SecretKeySpec securely = new SecretKeySpec(key.getBytes(), AES);
         // 设置密钥和加密形式
-        cipher.init(Cipher.ENCRYPT_MODE, securekey);
+        cipher.init(Cipher.ENCRYPT_MODE, securely);
         return cipher.doFinal(src);
     }
 
