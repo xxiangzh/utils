@@ -150,7 +150,7 @@ public class AesUtils {
             cipher.init(mode, key, iv);
             return cipher;
         } catch (Exception e) {
-            throw new RuntimeException("AESUtils:initParam fail!", e);
+            throw new RuntimeException("AES初始化参数失败", e);
         }
     }
 }
