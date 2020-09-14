@@ -29,7 +29,7 @@ public class AesUtils {
     /**
      * 密钥大小128/192/256(bits)位 即：16/24/32bytes，暂时使用128，如果扩大需要更换java/jre里面的jar包
      */
-    private static final Integer PRIVATE_KEY_SIZE_BIT = 128;
+    private static final Integer SECRET_KEY_SIZE_BIT = 128;
 
     /**
      * 偏移量（16bytes）
@@ -138,7 +138,7 @@ public class AesUtils {
             secureRandom.setSeed(secretKey.getBytes());
             // 获取key生成器
             KeyGenerator keygen = KeyGenerator.getInstance(ALGORITHM);
-            keygen.init(PRIVATE_KEY_SIZE_BIT, secureRandom);
+            keygen.init(SECRET_KEY_SIZE_BIT, secureRandom);
             // 获得原始对称密钥的字节数组
             byte[] raw = secretKey.getBytes();
             // 根据字节数组生成AES内部密钥
