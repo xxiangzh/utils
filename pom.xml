@@ -6,7 +6,7 @@
 
     <description>工具集</description>
     <groupId>com.xzh</groupId>
-    <artifactId>utils</artifactId>
+    <artifactId>xzh-tools</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0</version>
 
