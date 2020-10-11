@@ -105,7 +105,7 @@ public class FileUtil {
         boolean flag = true;
         for (File file : fileList) {
             for (String key : keys) {
-                if (file.getAbsolutePath().contains(key)){
+                if (file.getAbsolutePath().toUpperCase().contains(key.toUpperCase())){
                     flag = false;
                     break;
                 }
