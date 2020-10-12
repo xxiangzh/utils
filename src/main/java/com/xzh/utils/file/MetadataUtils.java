@@ -1,10 +1,11 @@
-package com.xzh.utils;
+package com.xzh.utils.file;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 import com.xzh.utils.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.io.File;
@@ -20,53 +21,34 @@ import java.util.List;
 public class MetadataUtils {
 
     /**
-     * 重命名
-     *
-     * @param file
-     * @param dateTime
-     */
-    public static void rename(File file, String dateTime) {
-        String filePath = file.getPath();
-        String fileName = file.getName();
-        String fileType = fileName.substring(fileName.lastIndexOf("."));
-        String oldFileNameNoType = fileName.substring(0, fileName.lastIndexOf("."));
-        if (oldFileNameNoType.contains(dateTime)) {
-            return;
-        }
-        // 创建新文件名
-        String newPathNoName = filePath.replace(fileName, "");
-        String newFileName = dateTime + oldFileNameNoType + fileType;
-        String newPath = newPathNoName + newFileName;
-        // 重命名
-        file.renameTo(new File(newPath));
-    }
-
-    /**
      * 获取拍摄日期
      *
      * @return
      */
-    public static String getDateTime(File file) {
-        String newPattern = "yyyy_MM_dd_HH_mm_";
+    public static String getDateTime(File file, String pattern) {
+        if (StringUtils.isBlank(pattern)) {
+            return null;
+        }
         List<Tag> tagList = getTagList(file);
         if (CollectionUtils.isEmpty(tagList)) {
             return null;
         }
         for (Tag tag : tagList) {
+            int tagType = tag.getTagType();
             String directoryName = tag.getDirectoryName();
             String tagName = tag.getTagName();
             String description = tag.getDescription();
             // jpeg
             if ("Exif IFD0".equals(directoryName) && "Date/Time".equals(tagName)) {
-                return DateUtils.stringToString(description, "yyyy:MM:dd HH:mm:ss", newPattern);
+                return DateUtils.stringToString(description, "yyyy:MM:dd HH:mm:ss", pattern);
             }
             // mp4
             else if ("MP4 Video".equals(directoryName) && "Creation Time".equals(tagName)) {
-                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", newPattern);
+                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", pattern);
             }
             // mov
             else if ("QuickTime Video".equals(directoryName) && "Creation Time".equals(tagName)) {
-                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", newPattern);
+                return DateUtils.stringToString(description, "E MMM dd HH:mm:ss +08:00 yyyy", pattern);
             }
         }
         return null;

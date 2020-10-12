@@ -1,4 +1,4 @@
-package com.xzh.utils;
+package com.xzh.utils.file;
 
 import org.springframework.web.multipart.MultipartFile;
 
