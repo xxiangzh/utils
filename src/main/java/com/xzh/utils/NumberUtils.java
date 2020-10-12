@@ -14,7 +14,7 @@ public class NumberUtils {
      * @param number
      * @return
      */
-    public static Double twoPoint(Double number){
+    public static Double twoPoint(Double number) {
         return Double.valueOf(new DecimalFormat("######0.00").format(number));
     }
 
@@ -24,7 +24,7 @@ public class NumberUtils {
      * @param number
      * @return
      */
-    public static String twoPoint(String number){
+    public static String twoPoint(String number) {
         return new DecimalFormat("######0.00").format(Double.valueOf(number));
     }
 }

@@ -73,7 +73,7 @@ public class Arith {
     /**
      * 提供精确的小数位四舍五入处理。
      *
-     * @param v  需要四舍五入的数字
+     * @param v     需要四舍五入的数字
      * @param scale 小数点后保留几位
      * @return 四舍五入后的结果
      */

@@ -24,27 +24,27 @@ public class IpUtils {
      * @return
      */
     public static String getIp() {
-        String unknown= "unknown";
+        String unknown = "unknown";
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        if (servletRequestAttributes == null){
+        if (servletRequestAttributes == null) {
             return null;
         }
         HttpServletRequest request = servletRequestAttributes.getRequest();
         // 获取IP
         String ip = request.getHeader("x-forwarded-for");
-        if(ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
+        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if(ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
+        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if(ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
+        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
-            if( "0:0:0:0:0:0:0:1".equals(ip)){
+            if ("0:0:0:0:0:0:0:1".equals(ip)) {
                 try {
                     //根据网卡取本机配置的IP
-                    ip= InetAddress.getLocalHost().getHostAddress();
+                    ip = InetAddress.getLocalHost().getHostAddress();
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
                 }
@@ -64,10 +64,10 @@ public class IpUtils {
      * @return
      */
     private static String getIp(ServerHttpRequest request) {
-        if (request == null){
+        if (request == null) {
             return null;
         }
-        String unknown= "unknown";
+        String unknown = "unknown";
         HttpHeaders headers = request.getHeaders();
         String ip = headers.getFirst("x-forwarded-for");
         if (ip != null && ip.length() != 0 && !unknown.equalsIgnoreCase(ip)) {
@@ -92,7 +92,7 @@ public class IpUtils {
             ip = headers.getFirst("X-Real-IP");
         }
         if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
-            if (request.getRemoteAddress() != null){
+            if (request.getRemoteAddress() != null) {
                 ip = request.getRemoteAddress().getAddress().getHostAddress();
             }
         }

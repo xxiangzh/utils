@@ -16,7 +16,7 @@ public class RandomUtils {
      * @param n
      * @return
      */
-    public static String code(Integer n){
+    public static String code(Integer n) {
         String numeric = RandomStringUtils.randomNumeric(n);
         return !numeric.startsWith("0") ? numeric : code(n);
     }

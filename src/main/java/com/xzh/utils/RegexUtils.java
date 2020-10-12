@@ -24,7 +24,7 @@ public class RegexUtils {
      * @return
      */
     public static boolean isValidPassword(String password) {
-        if (StringUtils.isBlank(password)){
+        if (StringUtils.isBlank(password)) {
             return false;
         }
         if (password.matches("\\w+")) {
@@ -56,7 +56,7 @@ public class RegexUtils {
      * @return
      */
     public static boolean isMobile(String mobile) {
-        if (StringUtils.isBlank(mobile)){
+        if (StringUtils.isBlank(mobile)) {
             return false;
         }
         return mobile.matches("[1][3456789]\\d{9}");

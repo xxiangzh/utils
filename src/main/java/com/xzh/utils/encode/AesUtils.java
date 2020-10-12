@@ -1,4 +1,4 @@
-package com.xzh.utils.secret;
+package com.xzh.utils.encode;
 
 import org.apache.commons.codec.binary.Base64;
 

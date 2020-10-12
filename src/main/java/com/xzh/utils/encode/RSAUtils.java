@@ -1,6 +1,5 @@
-package com.xzh.utils.secret;
+package com.xzh.utils.encode;
 
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 
@@ -153,6 +152,7 @@ public class RSAUtils {
 
     /**
      * 初始化RSA算法密钥对
+     *
      * @param keysize RSA1024已经不安全了,建议2048
      * @return 经过Base64编码后的公私钥Map, 键名分别为publicKey和privateKey
      */
@@ -178,10 +178,5 @@ public class RSAUtils {
         keyPairMap.put("publicKey", publicKeyStr);
         keyPairMap.put("privateKey", privateKeyStr);
         return keyPairMap;
-    }
-
-    //初始化公私钥main方法
-    public static void main(String[] args) {
-        System.out.println(JSONObject.toJSONString(initRSAKey(2048)));
     }
 }

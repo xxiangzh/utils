@@ -1,4 +1,4 @@
-package com.xzh.utils.secret;
+package com.xzh.utils.encode;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -13,6 +13,7 @@ public class Base64Utils {
 
     /**
      * 加密
+     *
      * @param text 明文
      * @return 密文
      */
@@ -24,6 +25,7 @@ public class Base64Utils {
 
     /**
      * 解密
+     *
      * @param text 密文
      * @return 明文
      */

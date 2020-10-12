@@ -4,7 +4,7 @@ import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
-import org.apache.commons.lang3.StringUtils;
+import com.xzh.utils.DateUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.io.File;
@@ -18,18 +18,6 @@ import java.util.List;
  * @date 2020/08/19 14:08
  */
 public class MetadataUtils {
-
-    public static void main(String[] args) {
-        System.out.println("------------------------");
-        List<File> fileList = FileUtil.getFileList("E:\\AAA", false);
-        for (File file : fileList) {
-            String dateTime = getDateTime(file);
-            if (StringUtils.isBlank(dateTime)) {
-                continue;
-            }
-            rename(file, dateTime);
-        }
-    }
 
     /**
      * 重命名

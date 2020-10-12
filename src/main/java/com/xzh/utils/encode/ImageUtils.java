@@ -1,4 +1,4 @@
-package com.xzh.utils;
+package com.xzh.utils.encode;
 
 import org.apache.commons.lang3.StringUtils;
 import sun.misc.BASE64Decoder;

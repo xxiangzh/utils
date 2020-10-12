@@ -25,7 +25,7 @@ public class ThreadPoolFactory {
      * 生成固定大小的线程池
      *
      * @param corePoolSize 核心线程数
-     * @param threadName 线程名称
+     * @param threadName   线程名称
      * @return 线程池
      */
     public static ExecutorService createFixedThreadPool(int corePoolSize, String threadName) {
@@ -36,13 +36,13 @@ public class ThreadPoolFactory {
                 KEEP_ALIVE_TIME,
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(WORK_QUEUE_CAPACITY),
-                new ThreadFactory(){
+                new ThreadFactory() {
                     @Override
                     public Thread newThread(Runnable r) {
                         return new Thread(r, threadName + "-" + threadNumber.getAndIncrement());
                     }
                 },
-                new RejectedExecutionHandler(){
+                new RejectedExecutionHandler() {
                     @Override
                     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
                         if (!executor.isShutdown()) {

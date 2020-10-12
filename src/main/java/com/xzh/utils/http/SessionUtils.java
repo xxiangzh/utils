@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  * @author 向振华
  * @date 2019年3月22日
  */
-public class SessionUtil {
+public class SessionUtils {
 
     /**
      * 获取当前session
@@ -24,7 +24,7 @@ public class SessionUtil {
     public static HttpSession session() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        if (servletRequestAttributes == null){
+        if (servletRequestAttributes == null) {
             return null;
         }
         HttpServletRequest request = servletRequestAttributes.getRequest();
@@ -36,10 +36,10 @@ public class SessionUtil {
      *
      * @return
      */
-    public static HttpServletResponse response(){
+    public static HttpServletResponse response() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        if (servletRequestAttributes == null){
+        if (servletRequestAttributes == null) {
             return null;
         }
         return servletRequestAttributes.getResponse();
@@ -50,10 +50,10 @@ public class SessionUtil {
      *
      * @return
      */
-    public static HttpServletRequest request(){
+    public static HttpServletRequest request() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        if (servletRequestAttributes == null){
+        if (servletRequestAttributes == null) {
             return null;
         }
         return servletRequestAttributes.getRequest();

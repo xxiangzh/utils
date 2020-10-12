@@ -24,22 +24,22 @@ public class RobotUtils {
     private static String active;
 
     @Value("${spring.profiles.active}")
-    public void setActive(String active){
+    public void setActive(String active) {
         RobotUtils.active = active;
     }
 
     /**
      * 机器人webhook
      */
-    private static final String WEBHOOK= "https://oapi.dingtalk.com/robot/send?access_token=a940e07d21f13f07895112be5fa89046162a877019d2cc6ba1bb2aba04afcccc";
+    private static final String WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=a940e07d21f13f07895112be5fa89046162a877019d2cc6ba1bb2aba04afcccc";
 
     /**
      * 发送消息
      */
-    public static void send(String message){
-        message = "【" + active + "】" + LocalDateTime.now().withNano(0).toString().replace("T", " ") +" \n" + message;
+    public static void send(String message) {
+        message = "【" + active + "】" + LocalDateTime.now().withNano(0).toString().replace("T", " ") + " \n" + message;
         message = message.replace("{", "").replace("}", "").replace("\"", " ");
-        String text ="{ \"msgtype\": \"text\", \"text\": {\"content\": \""+message+"\"}, \"at\": {\"isAtAll\": \"" + true + "\"}}";
+        String text = "{ \"msgtype\": \"text\", \"text\": {\"content\": \"" + message + "\"}, \"at\": {\"isAtAll\": \"" + true + "\"}}";
         doSend(text);
     }
 
