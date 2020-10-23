@@ -16,6 +16,19 @@ import static java.util.regex.Pattern.compile;
 public class RegexUtils {
 
     /**
+     * 是否是身份证（中国大陆18/15位身份证）
+     *
+     * @param idCard
+     * @return
+     */
+    public static boolean isIdCard(String idCard) {
+        if (StringUtils.isBlank(idCard)) {
+            return false;
+        }
+        return idCard.matches("(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{2}$)");
+    }
+
+    /**
      * 密码是否符合规范
      * 1.必须只能是 大写字母、小写字母和数字构成的密码
      * 2.大写字母、小写字母、数字都至少出现一次
