@@ -29,6 +29,32 @@ public class RegexUtils {
     }
 
     /**
+     * 是否是手机号
+     *
+     * @param mobile
+     * @return
+     */
+    public static boolean isMobile(String mobile) {
+        if (StringUtils.isBlank(mobile)) {
+            return false;
+        }
+        return mobile.matches("[1][3456789]\\d{9}");
+    }
+
+    /**
+     * 是否有效邮箱
+     *
+     * @param email
+     * @return
+     */
+    public static boolean isEmail(String email) {
+        if (StringUtils.isBlank(email)) {
+            return false;
+        }
+        return email.matches("^([a-zA-Z0-9])+([a-zA-Z0-9_.-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$");
+    }
+
+    /**
      * 密码是否符合规范
      * 1.必须只能是 大写字母、小写字母和数字构成的密码
      * 2.大写字母、小写字母、数字都至少出现一次
@@ -60,32 +86,6 @@ public class RegexUtils {
         } else {
             return false;
         }
-    }
-
-    /**
-     * 是否是手机号
-     *
-     * @param mobile
-     * @return
-     */
-    public static boolean isMobile(String mobile) {
-        if (StringUtils.isBlank(mobile)) {
-            return false;
-        }
-        return mobile.matches("[1][3456789]\\d{9}");
-    }
-
-    /**
-     * 是否有效邮箱
-     *
-     * @param email
-     * @return
-     */
-    public static boolean isEmail(String email) {
-        if (StringUtils.isBlank(email)) {
-            return false;
-        }
-        return email.matches("^([a-zA-Z0-9])+([a-zA-Z0-9_.-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$");
     }
 
     /**
