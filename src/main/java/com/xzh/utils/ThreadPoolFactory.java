@@ -1,7 +1,5 @@
 package com.xzh.utils;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,7 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author 向振华
  * @date 2020/06/12 10:24
  */
-@Slf4j
 public class ThreadPoolFactory {
 
     /**
