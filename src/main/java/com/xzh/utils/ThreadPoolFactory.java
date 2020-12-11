@@ -1,5 +1,7 @@
 package com.xzh.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -9,39 +11,36 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author 向振华
  * @date 2020/06/12 10:24
  */
+@Slf4j
 public class ThreadPoolFactory {
-
-    /**
-     * 线程池维护线程所允许的空闲时间
-     */
-    private final static int KEEP_ALIVE_TIME = 60;
-
-    /**
-     * 线程池所使用的缓冲队列大小的默认值
-     */
-    private final static int WORK_QUEUE_CAPACITY = 1024;
 
     /**
      * 生成固定大小的线程池
      *
-     * @param corePoolSize 核心线程数
-     * @param threadName   线程名称
+     * @param threadName 线程名称
      * @return 线程池
      */
-    public static ExecutorService createFixedThreadPool(int corePoolSize, String threadName) {
+    public static ExecutorService createFixedThreadPool(String threadName) {
         AtomicInteger threadNumber = new AtomicInteger(0);
         return new ThreadPoolExecutor(
-                corePoolSize,
-                corePoolSize * 2,
-                KEEP_ALIVE_TIME,
+                // 核心线程数
+                desiredThreadNum(),
+                // 最大线程数
+                desiredThreadNum() * 2,
+                // 空闲线程存活时间
+                60L,
+                // 空闲线程存活时间单位
                 TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(WORK_QUEUE_CAPACITY),
+                // 工作队列
+                new ArrayBlockingQueue<>(1024),
+                // 线程工厂
                 new ThreadFactory() {
                     @Override
                     public Thread newThread(Runnable r) {
                         return new Thread(r, threadName + "-" + threadNumber.getAndIncrement());
                     }
                 },
+                // 拒绝策略
                 new RejectedExecutionHandler() {
                     @Override
                     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
@@ -49,12 +48,19 @@ public class ThreadPoolFactory {
                             try {
                                 //尝试阻塞式加入任务队列
                                 executor.getQueue().put(r);
-                            } catch (InterruptedException e) {
+                            } catch (Exception e) {
                                 //保持线程的中端状态
                                 Thread.currentThread().interrupt();
                             }
                         }
                     }
                 });
+    }
+
+    /**
+     * 理想的线程数，使用 2倍cpu核心数
+     */
+    public static int desiredThreadNum() {
+        return Runtime.getRuntime().availableProcessors() * 2;
     }
 }
