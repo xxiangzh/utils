@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  * @author 向振华
  * @date 2019年3月22日
  */
-public class SessionUtils {
+public class HttpUtils {
 
     /**
      * 获取当前session
