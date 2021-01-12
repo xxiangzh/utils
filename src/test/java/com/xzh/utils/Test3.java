@@ -15,11 +15,12 @@ public class Test3 {
 
     public static void main(String[] args) {
         ExecutorService executorService = ThreadPoolFactory.createFixedThreadPool("xzh");
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             int finalI = i;
-            Future<String> submit = executorService.submit(() -> test(finalI));
+            Future<String> future = executorService.submit(() -> test(finalI));
             try {
-                submit.get();
+                String s = future.get();
+                System.out.println(s);
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -29,11 +30,10 @@ public class Test3 {
 
     private static String test(int x) {
         int random = new Random().nextInt(9);
-        if (random > 5) {
-            throw new RuntimeException("错误：" + x);
+        if (random > 7) {
+            throw new RuntimeException(Thread.currentThread().getName() + "--->" + "错误：" + x);
         } else {
-            log.info("success" + x);
-            return "成功" + x;
+            return Thread.currentThread().getName() + "--->" + "成功" + x;
         }
     }
 }

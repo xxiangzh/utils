@@ -46,7 +46,7 @@ public class ThreadPoolFactory {
                                 //尝试阻塞式加入任务队列
                                 executor.getQueue().put(r);
                             } catch (Exception e) {
-                                //保持线程的中端状态
+                                //保持线程的中断状态
                                 Thread.currentThread().interrupt();
                             }
                         }
