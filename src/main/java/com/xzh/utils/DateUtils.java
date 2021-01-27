@@ -96,4 +96,16 @@ public class DateUtils {
         Date date = stringToDate(dateString, oldPattern);
         return dateToString(date, newPattern);
     }
+
+    /**
+     * 日期转日期，根据pattern转换
+     *
+     * @param date
+     * @param pattern
+     * @return
+     */
+    public static Date dateToDate(Date date, String pattern) {
+        String string = dateToString(date, pattern);
+        return stringToDate(string, pattern);
+    }
 }
